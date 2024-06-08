@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <h1 class="mb-4 text-center">Grid right now</h1>
+    <h1 class="mb-4 text-center">Session</h1>
     <div v-if="isLoading" class="text-center">
       <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
@@ -10,7 +10,7 @@
     <div v-else>
       <div v-if="mergedData && mergedData.length > 0" class="row">
         <div v-for="item in mergedData" :key="item.driver_number" class="col-md-4 mb-4">
-          <div class="card h-100">
+          <div :class="['card', 'h-100', getTeamClass(item.team_name)]">
             <div class="card-body text-center">
               <img :src="item.headshot_url" alt="Driver headshot" class="headshot mb-3">
               <h5 class="card-title">{{ item.full_name }}</h5>
@@ -113,10 +113,40 @@ export default {
       return (lapEnd !== null && lapEnd > lapStart) ? lapEnd - lapStart : 0;
     };
 
+    const getTeamClass = (teamName) => {
+      switch (teamName.toLowerCase()) {
+        case 'mercedes':
+          return 'team-mercedes';
+        case 'red bull racing':
+          return 'team-redbull';
+        case 'ferrari':
+          return 'team-ferrari';
+        case 'mclaren':
+          return 'team-mclaren';
+        case 'aston martin':
+          return 'team-astonmartin';
+        case 'kick sauber':
+          return 'team-kicksauber';
+        case 'haas f1 team':
+          return 'team-haas';
+        case 'williams':
+          return 'team-williams';
+        case 'alpine':
+          return 'team-alpine';
+        case 'rb':
+          return 'team-rb';
+
+
+        default:
+          return '';
+      }
+    };
+
     return {
       mergedData,
       isLoading,
-      calculateTireAge
+      calculateTireAge,
+      getTeamClass
     };
   }
 };
@@ -127,7 +157,7 @@ export default {
   width: 100px;
   height: auto;
   border-radius: 50%;
-  margin-top: 10px;
+  margin-right: 10px;
   background-color: rgb(226, 226, 226);
 }
 
@@ -137,4 +167,49 @@ export default {
   background-color: #f7f4f1;
   color: #15151E;
 }
+
+/* Custom styles for each team */
+.team-mercedes {
+  border-left: 5px solid #00d2be;
+}
+
+.team-redbull {
+  border-left: 5px solid #1e41ff;
+}
+
+.team-ferrari {
+  border-left: 5px solid #dc0000;
+}
+
+.team-mclaren {
+  border-left: 5px solid #ff8700;
+}
+
+.team-astonmartin {
+  border-left: 5px solid #006f62;
+}
+
+.team-kicksauber {
+  border-left: 5px solid #06bb0f;
+}
+
+.team-haas {
+  border-left: 5px solid #f0d787;
+}
+
+.team-williams {
+  border-left: 5px solid #005aff;
+}
+
+.team-alpine {
+  border-left: 5px solid #e00dc4;
+}
+
+.team-rb {
+  border-left: 5px solid #1e41ff;
+}
+
+
+
+/* Add more teams as needed */
 </style>
