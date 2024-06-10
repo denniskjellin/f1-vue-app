@@ -29,7 +29,7 @@
 import { ref, onMounted } from 'vue';
 
 export default {
-  name: 'AboutPage',
+  name: 'Drivers',
 
   setup() {
     const driverData = ref([]);
